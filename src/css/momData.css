@@ -1,0 +1,286 @@
+@font-face {
+  font-family: "TiroDevanagariMarathi";
+  font-family: "TiroDevanagariMarathi";
+  src: url("../css/TiroDevanagariMarathi-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Krishna";
+  font-family: "Krishna";
+  src: url("../css/KRISHNA1.TTF") format("truetype");
+}
+.mom-container {
+  margin-bottom: 40px;
+  flex-direction: column;
+}
+.mom-table {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.select-columns {
+  display: flex;
+  font-size: 20px;
+  justify-items: center;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.select-columns2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 20px;
+  justify-items: center;
+}
+.headline {
+  font-family: "TiroDevanagariMarathi";
+  font-size: 18px;
+  font-weight: 600;
+}
+.all-container {
+  display: flex;
+  align-items: center;
+}
+p {
+  margin: 0px 5px;
+  font-size: 17px;
+  margin: 5px 5px;
+}
+.td-extra {
+  text-align: center;
+}
+.mom-table td {
+  border: 1px solid #000000;
+  padding: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+.mom-table th {
+  border: 1px solid #000000;
+  padding: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  text-align: left;
+  width: fit-content;
+}
+.mom-table th {
+  background-color: #007bff;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+  object-fit: fill;
+}
+.download-link {
+  color: #0066cc;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin-top: 5px;
+}
+.party-count {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  justify-content: space-around;
+  justify-items: center;
+  padding: 0 10px;
+}
+.select {
+  padding: 10px;
+}
+.mom-count {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.total-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.party-counts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h6 {
+  border: 2px solid black;
+  margin: 0px 5px;
+  background-color: rgb(215, 241, 241);
+  padding: 2px 20px;
+  font-size: 18px;
+}
+.party-header {
+  text-align: center;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.pagination a {
+  color: #008cff;
+  padding: 8px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active a {
+  background-color: #008cff;
+  color: white;
+}
+
+.pagination li {
+  display: block;
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .select-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 20px;
+    justify-items: center;
+    padding: 10px;
+  }
+  .party-count {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: space-around;
+    justify-items: center;
+    padding: 0 10px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .select-columns2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 20px;
+    justify-items: center;
+    padding: 10px;
+  }
+}
+
+/* Add this CSS to your existing styles */
+
+/* Responsive design */
+@media only screen and (max-width: 768px) {
+  .mom-table {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .mom-table th,
+  .mom-table td {
+    padding: 4px;
+    font-size: 12px;
+  }
+  .mom-table th,
+  .mom-table td {
+    padding: 6px;
+  }
+
+  img {
+    height: 80px;
+    width: 80px;
+  }
+
+  .pagination {
+    margin-top: 10px;
+  }
+
+  .pagination a {
+    padding: 6px 10px;
+    margin: 0 3px;
+  }
+
+  .party-count {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-around;
+    justify-items: center;
+    padding: 0 10px;
+  }
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .mom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+}
+
+/* Further adjustments for smaller screens */
+@media only screen and (max-width: 600px) {
+  .mom-table th,
+  .mom-table td {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  img {
+    height: 60px;
+    width: 60px;
+  }
+  .select-columns {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    font-size: 20px;
+    justify-items: center;
+    padding: 10px;
+  }
+  .select-columns2 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    font-size: 20px;
+    justify-items: center;
+    padding: 10px;
+  }
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .mom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .party-count {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+    justify-items: center;
+    padding: 0 10px;
+  }
+  .headerssss {
+    font-size: 16px;
+  }
+  .imggg {
+    width: 70px;
+    height: 70px;
+    padding: 20px 10px;
+  }
+}

@@ -1,0 +1,66 @@
+.report-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.filter-group select {
+  padding: 6px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.report-table {
+  width: 50%;
+  border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+  border: 1px solid #000000;
+  padding: 10px;
+  text-align: center;
+}
+
+.report-table th {
+  background-color: #63aef8;
+  color: black;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}

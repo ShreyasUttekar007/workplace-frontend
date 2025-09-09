@@ -1,0 +1,57 @@
+.pj-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pj-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .pj-filter {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pj-filter label {
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: black;
+  }
+  
+  .pj-filter select {
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .pj-table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .pj-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .pj-table th,
+  .pj-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .pj-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .pj-no-data {
+    text-align: center;
+    font-style: italic;
+  }
+  
