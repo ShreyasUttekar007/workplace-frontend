@@ -310,7 +310,7 @@ const BmcInterventionDashboard = () => {
   const filterData = () => {
     return interventionData.filter((data) => {
       // Use 'createdAt' as fallback for date if 'date' is missing
-      const dateToUse = data.date || data.createdAt;
+      const dateToUse = data.date || data.updatedAt || data.createdAt;
 
       // If neither 'date' nor 'createdAt' is present, skip the entry
       if (!dateToUse) {
