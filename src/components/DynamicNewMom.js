@@ -6,6 +6,7 @@ import {
   assemblyConstituencies,
   assemblyConstituenciesAp,
   assemblyConstituenciesBg,
+  assemblyConstituenciesUp,
 } from "../components/Roles";
 import localforage from "localforage";
 import Dashboard from "./Dashboard";
@@ -266,6 +267,8 @@ const DynamicNewMom = () => {
                         ? assemblyConstituenciesAp
                         : formData.state === "Bengal"
                         ? assemblyConstituenciesBg
+                        : formData.state === "Uttar Pradesh"
+                        ? assemblyConstituenciesUp // <-- Added Uttar Pradesh
                         : []
                       ).map((item, index) => (
                         <option key={index} value={item}>
@@ -274,6 +277,7 @@ const DynamicNewMom = () => {
                       ))}
                     </select>
                   </div>
+
                   <div className="form-group">
                     <label>Ward/Taluka:</label>
                     <input
@@ -387,6 +391,37 @@ const DynamicNewMom = () => {
                           "AIMIM",
                           "BGPM",
                           "SDA",
+                          "Other Party",
+                          "NA",
+                        ].map((party) => (
+                          <option key={party} value={party}>
+                            {party}
+                          </option>
+                        ))}
+                      </select>
+                    ) : formData.state === "Uttar Pradesh" ? ( // <-- Added section for Uttar Pradesh
+                      <select
+                        name="partyName"
+                        value={formData.partyName}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="" disabled>
+                          Select Party Name
+                        </option>
+                        {[
+                          "Bharatiya Janata Party (BJP)",
+                          "Indian National Congress (INC)",
+                          "Bahujan Samaj Party (BSP)",
+                          "Communist Party of India (CPI)",
+                          "Communist Party of India (Marxist) – CPI(M)",
+                          "National People’s Party (NPP)",
+                          "Samajwadi Party (SP)",
+                          "Rashtriya Lok Dal (RLD)",
+                          "Lok Dal",
+                          "Azad Samaj Party (Kanshi Ram)",
+                          "Aam Aadmi Party (AAP)",
+                          "Nishad Party",
                           "Other Party",
                           "NA",
                         ].map((party) => (

@@ -1,0 +1,186 @@
+/* Card container like the reference UI */
+.record-card {
+  max-width: 1100px;
+  margin: 32px auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  padding: 28px 28px 36px;
+  border: 1px solid #eef0f3;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin: 4px 0 20px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Sections */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0 10px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #111827;
+}
+
+/* Sub-cards for repeated rows */
+.card.soft {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* Grids */
+.grid-4-equal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+/* keep it responsive */
+@media (max-width: 1200px) {
+  .grid-4-equal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .grid-4-equal {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* (optional) make file input look like others */
+.field input[type="file"] {
+  padding: 8px;
+  margin-top: 0px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1024px) {
+  .grid-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Fields */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+  background: #fff;
+  font-size: 14px;
+  transition: border-color 120ms ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.field small.muted {
+  color: #6b7280;
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+/* Row actions */
+.row-right {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background: #7ea8fc;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Form spacing */
+.form {
+  display: flex;
+  flex-direction: column;
+}

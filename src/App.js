@@ -73,6 +73,8 @@ import GTMPageView from "./components/GTMPageView";
 import UpdateUserPassword from "./components/UpdateUserPassword";
 import JoineeSummaryTable from "./components/JoineeSummaryTable";
 import MumbaiCastes from "./components/MumbaiCastes";
+import AddCandidatesForm from "./components/CandidatesDailyActivity";
+import CandidatesDailyActivity from "./components/CandidatesDailyActivity";
 const App = () => {
   return (
     <Router>
@@ -351,6 +353,10 @@ const App = () => {
         <Route
           path="/mumbai-castes"
           element={<ProtectedRoute element={<MumbaiCastes />} />}
+        />
+        <Route
+          path="/add-candidates-daily-activity"
+          element={<ProtectedRoute element={<CandidatesDailyActivity />} />}
         />
         <Route path="/test-auth" element={<TestAuthStatus />} />
       </Routes>

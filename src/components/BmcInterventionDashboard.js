@@ -32,11 +32,16 @@ const BmcInterventionDashboard = () => {
   const [interventionActions, setInterventionActions] = useState([]);
   const [selectedInterventionAction, setSelectedInterventionAction] =
     useState(null);
+
+  // ✅ solvable filter state
+  const [solvableOptions, setSolvableOptions] = useState([]);
+  const [selectedSolvable, setSelectedSolvable] = useState(null);
+
   const [interventionCounts, setInterventionCounts] = useState({});
   const [interventionData, setInterventionData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 100; // Items per page
+  const itemsPerPage = 100;
   const componentRef = useRef();
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -64,7 +69,7 @@ const BmcInterventionDashboard = () => {
   );
 
   const startResize = (event, index) => {
-    event.preventDefault(); // Prevents selection issues
+    event.preventDefault();
     const startX = event.clientX;
     const startWidth = columnWidths[index];
 
@@ -74,7 +79,6 @@ const BmcInterventionDashboard = () => {
       setColumnWidths((prevWidths) => {
         const updatedWidths = [...prevWidths];
         updatedWidths[index] = newWidth;
-        console.log("Updated Widths:", updatedWidths); // Debugging
         return updatedWidths;
       });
     };
@@ -88,6 +92,7 @@ const BmcInterventionDashboard = () => {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
+  // ---- fetch roles
   useEffect(() => {
     const fetchRoles = async () => {
       try {
@@ -101,10 +106,10 @@ const BmcInterventionDashboard = () => {
     fetchRoles();
   }, []);
 
+  // ---- fetch main intervention data (once we know roles)
   useEffect(() => {
     const fetchInterventionData = async () => {
       try {
-        // Get user ID from localforage
         const userId = await localforage.getItem("ID");
         if (!userId) {
           console.error("User ID not found in localforage.");
@@ -121,23 +126,17 @@ const BmcInterventionDashboard = () => {
           }
         );
 
-        // Fetch pcs and constituencies data
-        const fetchedPcs = response.data.map((data) => data.pc).filter(Boolean); // Extract pcs from the response
+        const fetchedPcs = response.data.map((d) => d.pc).filter(Boolean);
         const fetchedConstituencies = response.data
-          .map((data) => data.constituency)
-          .filter(Boolean); // Extract constituencies from the response
+          .map((d) => d.constituency)
+          .filter(Boolean);
 
-        // Remove duplicates by converting them to a Set and then back to an array
         const uniquePcs = [...new Set(fetchedPcs)];
         const uniqueConstituencies = [...new Set(fetchedConstituencies)];
 
-        // Set pcs and constituencies state
         setPcs(uniquePcs.map((pc) => ({ value: pc, label: pc })));
         setConstituencies(
-          uniqueConstituencies.map((constituency) => ({
-            value: constituency,
-            label: constituency,
-          }))
+          uniqueConstituencies.map((c) => ({ value: c, label: c }))
         );
 
         setInterventionData(response.data);
@@ -148,6 +147,7 @@ const BmcInterventionDashboard = () => {
     };
 
     if (roles.length > 0) fetchInterventionData();
+    // ❗️removed selectedSolvable from deps
   }, [
     selectedConstituency,
     selectedPC,
@@ -157,6 +157,7 @@ const BmcInterventionDashboard = () => {
     selectedWard,
   ]);
 
+  // ---- fetch wards for constituency
   useEffect(() => {
     const fetchWards = async () => {
       if (!selectedConstituency) return;
@@ -183,6 +184,7 @@ const BmcInterventionDashboard = () => {
     fetchWards();
   }, [selectedConstituency]);
 
+  // ---- static lists
   useEffect(() => {
     const fetchInterventionTypesAndActions = async () => {
       try {
@@ -203,8 +205,16 @@ const BmcInterventionDashboard = () => {
           "State Lead Reviewed",
           "Zonal Reviewed",
         ];
+        const solvables = [
+          "Solvable - Easy",
+          "Solvable - Moderate",
+          "Solvable - Difficult",
+          "Solvable - Immediate",
+        ];
+
         setInterventionTypes(types);
         setInterventionActions(actions);
+        setSolvableOptions(solvables);
       } catch (error) {
         console.error("Error fetching intervention types and actions:", error);
       }
@@ -213,26 +223,29 @@ const BmcInterventionDashboard = () => {
     fetchInterventionTypesAndActions();
   }, []);
 
+  // ---- counts (backend) – send only truthy params
   useEffect(() => {
     const fetchCounts = async () => {
       const token = await localforage.getItem("token");
       try {
-        // Construct the API endpoint with the filters applied
-        const params = {
-          pc: selectedPC, // Filter by PC
-          constituency: selectedConstituency, // Filter by Constituency
-          ward: selectedWard, // Filter by Ward
-          interventionType: selectedInterventionType, // Filter by Intervention Type
-          interventionAction: selectedInterventionAction, // Filter by Intervention Action
-          fromDate: fromDate ? new Date(fromDate).toISOString() : null, // Filter by From Date
-          toDate: toDate ? new Date(toDate).toISOString() : null, // Filter by To Date
-        };
+        const params = {};
+
+        if (selectedPC) params.pc = selectedPC;
+        if (selectedConstituency) params.constituency = selectedConstituency;
+        if (selectedWard) params.ward = selectedWard;
+        if (selectedInterventionType)
+          params.interventionType = selectedInterventionType;
+        if (selectedInterventionAction)
+          params.interventionAction = selectedInterventionAction;
+        if (fromDate) params.fromDate = new Date(fromDate).toISOString();
+        if (toDate) params.toDate = new Date(toDate).toISOString();
+        if (selectedSolvable) params.solvable = selectedSolvable; // ✅ only if selected
 
         const response = await api.get(`${API_URL}/bmc/interventions/counts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          params: params, // Pass the filters as query parameters
+          params,
         });
 
         setInterventionCounts(response.data);
@@ -241,23 +254,23 @@ const BmcInterventionDashboard = () => {
       }
     };
 
-    // Fetch the counts when any of the filters, roles, or date range change
     if (roles.length > 0) fetchCounts();
   }, [
-    selectedPC, // PC filter
-    selectedConstituency, // Constituency filter
-    selectedWard, // Ward filter
-    selectedInterventionType, // Intervention Type filter
-    selectedInterventionAction, // Intervention Action filter
-    roles, // Trigger fetch when roles change
-    fromDate, // Trigger fetch when fromDate changes
-    toDate, // Trigger fetch when toDate changes
+    selectedPC,
+    selectedConstituency,
+    selectedWard,
+    selectedInterventionType,
+    selectedInterventionAction,
+    fromDate,
+    toDate,
+    selectedSolvable, // we still re-run when solvable changes
+    roles,
   ]);
 
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      width: "250px", // Set the width of the select box
+      width: "250px",
       marginBottom: "10px",
       border: "2px solid black",
       color: "black",
@@ -266,13 +279,11 @@ const BmcInterventionDashboard = () => {
 
   const handleInterventionActionChange = async (id, newValue, solvable) => {
     try {
-      // Update intervention action and solvable in the backend
       await api.put(`${API_URL}/bmc/update-intervention-action/${id}`, {
         interventionAction: newValue,
         solvable,
       });
 
-      // Update the intervention action and solvable in the state
       setInterventionData((prevData) =>
         prevData.map((data) =>
           data._id === id
@@ -293,10 +304,7 @@ const BmcInterventionDashboard = () => {
     { label: "Department", key: "department" },
     { label: "Intervention Type", key: "interventionType" },
     { label: "Intervention Issues", key: "interventionIssues" },
-    {
-      label: "Intervention Issue Brief",
-      key: "interventionIssueBrief",
-    },
+    { label: "Intervention Issue Brief", key: "interventionIssueBrief" },
     { label: "Suggested Actionable", key: "suggestedActionable" },
     { label: "Facilitator Name", key: "facilitatorName" },
     { label: "Facilitator Number", key: "facilitatorNumber" },
@@ -309,12 +317,9 @@ const BmcInterventionDashboard = () => {
 
   const filterData = () => {
     return interventionData.filter((data) => {
-      // Use 'createdAt' as fallback for date if 'date' is missing
       const dateToUse = data.date || data.updatedAt || data.createdAt;
 
-      // If neither 'date' nor 'createdAt' is present, skip the entry
       if (!dateToUse) {
-        console.log("Skipping entry due to missing date:", data);
         return false;
       }
 
@@ -329,19 +334,16 @@ const BmcInterventionDashboard = () => {
       const isInterventionActionMatch = selectedInterventionAction
         ? data.interventionAction === selectedInterventionAction
         : true;
+      const isSolvableMatch = selectedSolvable
+        ? data.solvable === selectedSolvable
+        : true;
 
-      // Validate and parse the fallback date
       const recordDate = new Date(dateToUse);
       const dateIsValid = !isNaN(recordDate);
 
-      if (!dateIsValid) {
-        console.log("Invalid Date:", dateToUse);
-      }
-
-      // Normalize the dates by stripping the time portion for accurate comparison
       const normalizeDate = (date) => {
         const normalized = new Date(date);
-        normalized.setHours(0, 0, 0, 0); // Set time to 00:00:00 to ignore time in comparison
+        normalized.setHours(0, 0, 0, 0);
         return normalized;
       };
 
@@ -362,12 +364,21 @@ const BmcInterventionDashboard = () => {
         isWardMatch &&
         isInterventionTypeMatch &&
         isInterventionActionMatch &&
+        isSolvableMatch &&
         (!fromDate && !toDate ? true : isDateMatch)
       );
     });
   };
 
   const currentFilteredData = filterData();
+
+  // ✅ derive counts on client when solvable is applied
+  const derivedTypeCounts = currentFilteredData.reduce((acc, item) => {
+    const t = item.interventionType || "Unknown";
+    acc[t] = (acc[t] || 0) + 1;
+    return acc;
+  }, {});
+
   const pageCount = Math.ceil(currentFilteredData.length / itemsPerPage);
   const paginatedData = currentFilteredData.slice(
     currentPage * itemsPerPage,
@@ -375,7 +386,7 @@ const BmcInterventionDashboard = () => {
   );
 
   const handlePageClick = (event) => {
-    setCurrentPage(event.selected); // Update current page
+    setCurrentPage(event.selected);
   };
 
   const handleDeleteIntervention = async (id) => {
@@ -403,6 +414,7 @@ const BmcInterventionDashboard = () => {
   };
 
   const pdfHideColumns = [0, 12, 13];
+
   return (
     <>
       <Dashboard />
@@ -494,6 +506,26 @@ const BmcInterventionDashboard = () => {
                 }
                 isClearable
               />
+
+              {/* ✅ NEW FILTER: Solvable */}
+              <Select
+                id="solvable"
+                styles={customStyles}
+                placeholder="Select Solvable Level"
+                options={solvableOptions.map((s) => ({
+                  value: s,
+                  label: s,
+                }))}
+                value={
+                  selectedSolvable
+                    ? { value: selectedSolvable, label: selectedSolvable }
+                    : null
+                }
+                onChange={(option) =>
+                  setSelectedSolvable(option?.value || null)
+                }
+                isClearable
+              />
             </div>
             <div className="filter-controls">
               <div className="date-filter">
@@ -518,27 +550,50 @@ const BmcInterventionDashboard = () => {
         <div className="intervention-counts">
           <h2>Intervention Counts</h2>
           <div className="counts-grid">
-            {interventionCounts.typeCounts && (
-              <div className="count-card total-count">
-                <h3>Total</h3>
-                <p>
-                  {Object.values(interventionCounts.typeCounts).reduce(
-                    (total, count) => total + count,
-                    0
-                  )}
-                </p>
-              </div>
+            {/* ✅ if solvable is selected, show client-side counts */}
+            {selectedSolvable ? (
+              <>
+                <div className="count-card total-count">
+                  <h3>Total</h3>
+                  <p>
+                    {Object.values(derivedTypeCounts).reduce(
+                      (total, count) => total + count,
+                      0
+                    )}
+                  </p>
+                </div>
+                {Object.entries(derivedTypeCounts).map(([type, count]) => (
+                  <div key={type} className="count-card">
+                    <h3>{type}</h3>
+                    <p>{count}</p>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                {interventionCounts.typeCounts && (
+                  <div className="count-card total-count">
+                    <h3>Total</h3>
+                    <p>
+                      {Object.values(interventionCounts.typeCounts).reduce(
+                        (total, count) => total + count,
+                        0
+                      )}
+                    </p>
+                  </div>
+                )}
+
+                {Object.entries(interventionCounts.typeCounts || {}).map(
+                  ([type, count]) => (
+                    <div key={type} className="count-card">
+                      <h3>{type}</h3>
+                      <p>{count}</p>
+                    </div>
+                  )
+                )}
+              </>
             )}
 
-            {/* Display counts for each intervention type */}
-            {Object.entries(interventionCounts.typeCounts || {}).map(
-              ([type, count]) => (
-                <div key={type} className="count-card">
-                  <h3>{type}</h3>
-                  <p>{count}</p>
-                </div>
-              )
-            )}
             <ReactToPrint
               trigger={() => (
                 <FontAwesomeIcon
@@ -554,6 +609,7 @@ const BmcInterventionDashboard = () => {
                 selectedConstituency,
                 selectedWard,
                 selectedInterventionType,
+                selectedSolvable,
               ]
                 .filter(Boolean)
                 .join("_")}`}
@@ -569,6 +625,7 @@ const BmcInterventionDashboard = () => {
                 selectedPC,
                 selectedWard,
                 selectedInterventionAction,
+                selectedSolvable,
               ]
                 .filter(Boolean)
                 .join("_")}`}
@@ -696,6 +753,9 @@ const BmcInterventionDashboard = () => {
                           </option>
                           <option value="Solvable - Difficult">
                             Solvable - Difficult
+                          </option>
+                          <option value="Solvable - Immediate">
+                            Solvable - Immediate
                           </option>
                         </select>
                       ) : (

@@ -405,6 +405,23 @@ const ListNewMom = () => {
         "Other Party",
         "NA",
       ];
+    } else if (location === "Uttar Pradesh") {
+      partyNames = [
+        "Bharatiya Janata Party (BJP)",
+        "Indian National Congress (INC)",
+        "Bahujan Samaj Party (BSP)",
+        "Communist Party of India (CPI)",
+        "Communist Party of India (Marxist) – CPI(M)",
+        "National People’s Party (NPP)",
+        "Samajwadi Party (SP)",
+        "Rashtriya Lok Dal (RLD)",
+        "Lok Dal",
+        "Azad Samaj Party (Kanshi Ram)",
+        "Aam Aadmi Party (AAP)",
+        "Nishad Party",
+        "Other Party",
+        "NA",
+      ];
     }
 
     if (Array.isArray(partyNames)) {
@@ -982,7 +999,9 @@ const ListNewMom = () => {
                   <h3>Total MoM Count: </h3>
                   <h6>{yesCount}</h6>
                 </div>
-                <button style={{marginTop:"10px"}} onClick={clearFilters}>Clear filter</button>
+                <button style={{ marginTop: "10px" }} onClick={clearFilters}>
+                  Clear filter
+                </button>
               </div>
               {partyCounts.length > 0 && (
                 <>

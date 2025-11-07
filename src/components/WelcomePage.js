@@ -533,6 +533,16 @@ const WelcomePage = () => {
               </a>
             )}
             {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/add-candidates-daily-activity" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPersonCirclePlus}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Candidate Activity Tracker
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
               <a href="/probable-joinees-section" className="menu-buttons">
                 <FontAwesomeIcon
                   icon={faPersonCircleCheck}
@@ -578,6 +588,7 @@ const WelcomePage = () => {
                 AC Report
               </a>
             )}
+            
             {role === "hr" || role === "user" || role === "ops" ? null : (
               <a href="/idi-data" className="menu-buttons">
                 <FontAwesomeIcon
@@ -788,6 +799,301 @@ const WelcomePage = () => {
         </div>
       )}
       {location === "Bengal" && (
+        <div className="buttons-container">
+          <h2 className="head-text-welcome">Dashboards</h2>
+          <div className="buttons">
+            {/* {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/momdata" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="font-pdf"
+                  size="3x"
+                />
+                MoM Dashboard
+              </a>
+            )} */}
+            {/* {role !== "mod" &&
+            role !== "state" &&
+            !isRoleAllowed &&
+            !isEmailAllowed ? null : (
+              <a href="/bmc-intervention-dashboard" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="font-pdf"
+                  size="3x"
+                />
+                BMC Intervention Dashboard
+              </a>
+            )}
+            {role !== "mod" && role !== "state" && !isZoneRoleAllowed ? null : (
+              <a href="/state-intervention-dashboard" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="font-pdf"
+                  size="3x"
+                />
+                State Intervention Dashboard
+              </a>
+            )} */}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/meeting-section" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPersonCirclePlus}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Leader Meeting Section
+              </a>
+            )}
+            {/* {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/probable-joinees-section" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPersonCircleCheck}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Probable Joinees Section
+              </a>
+            )} */}
+            {role === "ops" ? null : (
+              <a href="/leave-section" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faCalendarDay}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Leave Section
+              </a>
+            )}
+            {role === "hr" ? null : (
+              <a href="/travel-section" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faTrainSubway}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Travel Section
+              </a>
+            )}
+            {/* {role === "hr" ? null : (
+              <a href="/cab-section" className="menu-buttons">
+                <FontAwesomeIcon icon={faCab} className="font-pdf" size="3x" />
+                Cab Section
+              </a>
+            )} */}
+            {/* {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/reportdata" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="font-pdf"
+                  size="3x"
+                />
+                AC Report
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/idi-data" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="font-pdf"
+                  size="3x"
+                />
+                IDI Dashboard
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/booth-list" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faListUl}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Booth List
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/candidate-list" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faListUl}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Candidate List
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/media-scan" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPodcast}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Media Scan
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" || email !=="gautam.pandey@showtimeconsulting.in"? null : (
+              <a href="/caste-dashboard" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPieChart}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Caste Dashboard
+              </a>
+            )}
+            {role === "hr" || role === "user" || role === "ops" ? null : (
+              <a href="/mumbai-castes" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faPieChart}
+                  className="font-pdf"
+                  size="3x"
+                />
+                BMC Caste Dashboard
+              </a>
+            )}
+            <a href="/state-dashboard" className="menu-buttons">
+            <FontAwesomeIcon icon={faPieChart} className="font-pdf" size="3x" />
+            BI Dashboard
+          </a>
+            {role !== "mod" ? null : (
+              <a href="/emp-data" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faCalendarAlt}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Attendance Records
+              </a>
+            )} */}
+            {/* {role !== "mod" &&
+          role !== "state" ? null : (
+            <a href="/survey-dashboard" className="menu-buttons">
+              <FontAwesomeIcon
+                icon={faPieChart}
+                className="font-pdf"
+                size="3x"
+              />
+              Survey Dashboard
+            </a>
+          )} */}
+            {role !== "mod" && role !== "hr" ? null : (
+              <a href="/userdashboard" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faUsersLine}
+                  className="font-pdf"
+                  size="3x"
+                />
+                User Data
+              </a>
+            )}
+          </div>
+          {role !== "mod" ? null : (
+            <h2 className="head-text-welcome">Upload Data</h2>
+          )}
+          <div className="buttons2">
+            {role !== "mod" && role !== "hr" ? null : (
+              <a
+                href="/nWuRGm1GvLXyCmQ6TbxqfQ7YasvDlY8z87TxUHrX0HUhX0Pxa9"
+                className="menu-buttons"
+              >
+                <FontAwesomeIcon
+                  icon={faUserPlus}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Add User
+              </a>
+            )}
+            {/* {role !== "mod" &&
+            role !== "soul" &&
+            email !== "aditiambekar@showtimeconsulting.in" &&
+            email !== "sagar.jadhav@showtimeconsulting.in" &&
+            email !== "akash.jaywant@showtimeconsulting.in" &&
+            email !== "pratikubale@showtimeconsulting.in" &&
+            email !== "kaustavv.das@showtimeconsulting.in" &&
+            email !== "hardik.parab@showtimeconsulting.in" &&
+            email !== "vinay.gowda@showtimeconsulting.in" &&
+            email !== "koushik@showtimeconsulting.in" &&
+            email !== "somali@showtimeconsulting.in" &&
+            email !== "govind.lilhare@showtimeconsulting.in" ? null : (
+              <a href="/createMom" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                Add MoM
+              </a>
+            )} */}
+            {/* {role !== "mod" &&
+            email !== "sharvil.bhurke@showtimeconsulting.in" ? null : (
+              <a href="/create-form17" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                Add Form-17
+              </a>
+            )}
+            {role !== "mod" &&
+            email !== "sharvil.bhurke@showtimeconsulting.in" ? null : (
+              <a href="/gatt-gann" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                Add Gatt-Gann
+              </a>
+            )}
+            {role !== "mod" &&
+            role !== "soul" &&
+            email !== "aditiambekar@showtimeconsulting.in" &&
+            email !== "sagar.jadhav@showtimeconsulting.in" &&
+            email !== "pratikubale@showtimeconsulting.in" &&
+            email !== "akash.jaywant@showtimeconsulting.in" &&
+            email !== "kaustavv.das@showtimeconsulting.in" &&
+            email !== "hardik.parab@showtimeconsulting.in" &&
+            email !== "vinay.gowda@showtimeconsulting.in" &&
+            email !== "koushik@showtimeconsulting.in" &&
+            email !== "somali@showtimeconsulting.in" &&
+            email !== "govind.lilhare@showtimeconsulting.in" ? null : (
+              <a href="/createacreport" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                Add AC Report
+              </a>
+            )}
+            {role === "hr" || role2 === "user" || role === "ops" ? null : (
+              <a href="/create-media-scan" className="menu-buttons">
+                <FontAwesomeIcon
+                  icon={faSatelliteDish}
+                  className="font-pdf"
+                  size="3x"
+                />
+                Add Media Scan
+              </a>
+            )}
+            {role === "hr" || role2 === "user" || role === "ops" ? null : (
+              <a href="/bmc-form" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                BMC Interventions
+              </a>
+            )}
+            {role === "hr" || role2 === "user" || role === "ops" ? null : (
+              <a href="/state-interventions" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                State Interventions
+              </a>
+            )} */}
+            {/* {role !== "mod" &&
+            role !== "soul" &&
+            email !== "aditiambekar@showtimeconsulting.in" &&
+            email !== "sagar.jadhav@showtimeconsulting.in" &&
+            email !== "pratikubale@showtimeconsulting.in" &&
+            email !== "akash.jaywant@showtimeconsulting.in" &&
+            email !== "kaustavv.das@showtimeconsulting.in" &&
+            email !== "somali@showtimeconsulting.in" &&
+            email !== "hardik.parab@showtimeconsulting.in" &&
+            email !== "vinay.gowda@showtimeconsulting.in" &&
+            email !== "govind.lilhare@showtimeconsulting.in" ? null : (
+              <a href="/create-idi" className="menu-buttons">
+                <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
+                Add IDI Report
+              </a>
+            )} */}
+          </div>
+        </div>
+      )}
+      {location === "Uttar Pradesh" && (
         <div className="buttons-container">
           <h2 className="head-text-welcome">Dashboards</h2>
           <div className="buttons">
